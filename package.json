@@ -1,0 +1,35 @@
+{
+  "name": "deepfake-shield",
+  "version": "1.0.0",
+  "description": "Deepfake Shield — Decentralized Media Provenance Pipeline",
+  "private": true,
+  "workspaces": [
+    "contracts",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "compile:contracts": "npm run compile --workspace=contracts",
+    "test:contracts": "npm run test --workspace=contracts",
+    "deploy:contracts": "npm run deploy:local --workspace=contracts",
+    "build:backend": "npm run build --workspace=backend",
+    "test:backend": "npm run test --workspace=backend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "test:forensics": ".\\.venv\\Scripts\\python.exe forensics\\test_forensics.py",
+    "test:all": "npm run test:contracts && npm run test:backend && npm run test:forensics",
+    "build:all": "npm run compile:contracts && npm run build:backend && npm run build:frontend"
+  },
+  "keywords": [
+    "deepfake",
+    "provenance",
+    "media-authenticity",
+    "web3",
+    "solidity",
+    "ethereum",
+    "ipfs"
+  ],
+  "author": "Deepfake Shield Engineering Team",
+  "license": "MIT"
+}

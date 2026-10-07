@@ -1,0 +1,5 @@
+# Deepfake Shield — Python Media Forensics & Perceptual Hashing Toolkit
+Pillow>=10.0.0
+imagehash>=4.3.1
+numpy>=1.24.0
+requests>=2.31.0

@@ -1,0 +1,16 @@
+Terminal-1 
+cd contracts
+npx hardhat node
+
+Terminal-2
+cd backend
+npm run dev
+
+Terminal-3
+cd frontend
+npm run dev
+
+
+#funding cmd 
+
+npx tsx -e "import { ethers } from 'ethers'; (async () => { const p = new ethers.JsonRpcProvider('http://127.0.0.1:8545'); const s = await p.getSigner(0); const tx = await s.sendTransaction({ to: '0x3968b9721d8720B0bcdCA976A5a4f9c45ba47c28', value: ethers.parseEther('100.0') }); await tx.wait(); console.log('Funded 100 ETH!'); })()"

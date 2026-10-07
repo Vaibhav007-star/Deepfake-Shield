@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  blockchain-node:
+    image: node:20-alpine
+    container_name: deepfake-shield-node
+    working_dir: /app
+    volumes:
+      - ./contracts:/app
+    command: sh -c "npm install && npx hardhat node"
+    ports:
+      - "8545:8545"
+    networks:
+      - shield-network
+
+  backend:
+    image: node:20-alpine
+    container_name: deepfake-shield-backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    environment:
+      - PORT=5000
+      - NODE_ENV=development
+      - RPC_URL=http://blockchain-node:8545
+      - CONTRACT_ADDRESS=${CONTRACT_ADDRESS:-0x5FbDB2315678afecb367f032d93F642f64180aa3}
+      - PRIVATE_KEY=${BACKEND_PRIVATE_KEY:-0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80}
+      - PINATA_JWT=${PINATA_JWT:-}
+      - PINATA_GATEWAY=${PINATA_GATEWAY:-https://gateway.pinata.cloud/ipfs}
+      - FRONTEND_ORIGIN=http://localhost:3000
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - blockchain-node
+    networks:
+      - shield-network
+
+  frontend:
+    image: node:20-alpine
+    container_name: deepfake-shield-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5000/api
+      - NEXT_PUBLIC_CONTRACT_ADDRESS=${CONTRACT_ADDRESS:-0x5FbDB2315678afecb367f032d93F642f64180aa3}
+      - NEXT_PUBLIC_RPC_URL=http://localhost:8545
+      - NEXT_PUBLIC_CHAIN_ID=31337
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - shield-network
+
+networks:
+  shield-network:
+    driver: bridge

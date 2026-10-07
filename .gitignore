@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Hardhat & Smart Contracts
+artifacts/
+cache/
+typechain/
+typechain-types/
+
+# Backend Build & Uploads
+backend/dist/
+backend/uploads/
+backend/temp/
+*.log
+
+# Frontend Build & Cache
+frontend/.next/
+frontend/out/
+frontend/build/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+contracts/.env
+backend/.env
+frontend/.env.local
+
+# Testing Coverage
+coverage/
+.nyc_output/
+
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python Virtual Environment & Cache
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
